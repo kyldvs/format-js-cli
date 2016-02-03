@@ -1,0 +1,21 @@
+{
+  "name": "format-js-cli",
+  "version": "1.0.0",
+  "description": "Run formatjs from the command line",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "formatjs": "bin/formatjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kyldvs/format-js-cli.git"
+  },
+  "author": "Kyle Davis",
+  "license": "ISC",
+  "dependencies": {
+    "nuclide-format-js-base": "0.0.35",
+    "nuclide-update-cursor": "0.0.35"
+  }
+}

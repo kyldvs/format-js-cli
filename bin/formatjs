@@ -1,0 +1,51 @@
+#!/usr/local/bin/node
+
+'use strict';
+
+process.title = 'formatjs';
+
+var NuclideUpdateCursor = require('nuclide-update-cursor');
+var NuclideFormatJSBase = require('nuclide-format-js-base');
+
+var createModuleMap = NuclideFormatJSBase.createModuleMap;
+var defaultAliases = NuclideFormatJSBase.defaultAliases;
+var defaultBuiltIns = NuclideFormatJSBase.defaultBuiltIns;
+var defaultBuiltInTypes = NuclideFormatJSBase.defaultBuiltInTypes;
+var transform = NuclideFormatJSBase.transform;
+var updateCursor = NuclideUpdateCursor.updateCursor;
+
+process.stdin.on('readable', function() {
+  var chunks = [];
+  var chunk;
+  while (null != (chunk = process.stdin.read())) {
+    chunks.push(chunk.toString('utf8'));
+  }
+  
+  // Get all the input and then all the lines
+  var input = chunks.join('');
+  var lines = input.split(/\r?\n/);
+
+  // Determine the cursor based on the first line  
+  var rawCursor = lines[0].split(' ');
+  var row = parseInt(rawCursor[0]);
+  var column = parseInt(rawCursor[1]);
+  
+  var startPosition = {
+    row: row,
+    column: column,
+  };
+  var startSource = lines.slice(1).join('\n');
+  var endSource = transform(startSource, {
+    moduleMap: createModuleMap({
+      paths: [],
+      pathsToRelativize: [],
+      aliases: defaultAliases,
+      aliasesToRelativize: new Map(),
+      builtIns: defaultBuiltIns,
+      builtInTypes: defaultBuiltInTypes,
+    }),
+  });
+  var endPosition = updateCursor(startSource, startPosition, endSource);
+  var output = endPosition.row + ' ' + endPosition.column + '\n' + endSource;
+  process.stdout.write(output);
+});
