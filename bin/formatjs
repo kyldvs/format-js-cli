@@ -4,15 +4,14 @@
 
 process.title = 'formatjs';
 
-var NuclideUpdateCursor = require('nuclide-update-cursor');
-var NuclideFormatJSBase = require('nuclide-format-js-base');
+var NuclideFormatJS = require('nuclide-format-js');
+var updateCursor = require('nuclide-format-js/lib/update-cursor');
 
-var createModuleMap = NuclideFormatJSBase.createModuleMap;
-var defaultAliases = NuclideFormatJSBase.defaultAliases;
-var defaultBuiltIns = NuclideFormatJSBase.defaultBuiltIns;
-var defaultBuiltInTypes = NuclideFormatJSBase.defaultBuiltInTypes;
-var transform = NuclideFormatJSBase.transform;
-var updateCursor = NuclideUpdateCursor.updateCursor;
+var createModuleMap = NuclideFormatJS.createModuleMap;
+var defaultAliases = NuclideFormatJS.defaultAliases;
+var defaultBuiltIns = NuclideFormatJS.defaultBuiltIns;
+var defaultBuiltInTypes = NuclideFormatJS.defaultBuiltInTypes;
+var transform = NuclideFormatJS.transform;
 
 process.stdin.on('readable', function() {
   var chunks = [];

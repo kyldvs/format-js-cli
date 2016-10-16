@@ -15,7 +15,6 @@
   "author": "Kyle Davis",
   "license": "ISC",
   "dependencies": {
-    "nuclide-format-js-base": "0.0.35",
-    "nuclide-update-cursor": "0.0.35"
+    "nuclide-format-js": "0.0.36"
   }
 }
